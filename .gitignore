@@ -1,0 +1,24 @@
+.agents/
+
+# Dependencies
+/vendor/
+
+# Environment and secrets
+.env
+.env.local
+
+# Runtime folders
+/logs/*.log
+/cache/*
+!/cache/.gitkeep
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+
+crear_estructura_mvc.py
+
+promt.md
