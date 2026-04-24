@@ -1,0 +1,27 @@
+site_name: Protectora de Mascotas
+site_description: API MVC en PHP + PWA Vanilla JS para adopciones
+site_url: https://example.com/docs
+repo_name: protectora-mascotas
+repo_url: https://github.com/tu-org/protectora-mascotas
+theme:
+  name: material
+  language: es
+  palette:
+    primary: green
+    accent: amber
+nav:
+  - Inicio: index.md
+  - Arquitectura MVC: arquitectura.md
+  - API:
+      - Endpoints: api/endpoints.md
+      - Autenticacion JWT: api/autenticacion.md
+  - Frontend PWA: frontend/pwa.md
+  - Despliegue:
+      - Backend hosting PHP: deploy/backend-hosting.md
+      - Frontend Netlify: deploy/frontend-netlify.md
+      - GitHub Actions CD: deploy/github-actions.md
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
