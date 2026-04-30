@@ -28,4 +28,16 @@ final class RouterTest extends TestCase
 
         $this->assertNull($match);
     }
+
+    public function testMatchesPutRouteWithParams(): void
+    {
+        $router = new Router();
+        $router->put('/mascotas/{id}', 'MascotasController@updateAction');
+
+        $match = $router->match('PUT', '/mascotas/7');
+
+        $this->assertIsArray($match);
+        $this->assertSame('MascotasController@updateAction', $match['handler']);
+        $this->assertSame('7', $match['params']['id']);
+    }
 }
