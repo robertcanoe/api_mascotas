@@ -9,6 +9,8 @@ class Router
     private array $routes = [
         'GET' => [],
         'POST' => [],
+        'PUT' => [],
+        'DELETE' => [],
         'OPTIONS' => [],
     ];
 
@@ -20,6 +22,16 @@ class Router
     public function post(string $path, string $handler, array $options = []): void
     {
         $this->addRoute('POST', $path, $handler, $options);
+    }
+
+    public function put(string $path, string $handler, array $options = []): void
+    {
+        $this->addRoute('PUT', $path, $handler, $options);
+    }
+
+    public function delete(string $path, string $handler, array $options = []): void
+    {
+        $this->addRoute('DELETE', $path, $handler, $options);
     }
 
     public function options(string $path, string $handler, array $options = []): void
@@ -37,7 +49,6 @@ class Router
             'param_names' => $paramNames,
             'handler' => $handler,
             'middleware' => $options['middleware'] ?? [],
-            'response' => $options['response'] ?? 'json',
         ];
     }
 
@@ -66,7 +77,6 @@ class Router
                 'path' => $route['path'],
                 'handler' => $route['handler'],
                 'middleware' => $route['middleware'],
-                'response' => $route['response'],
                 'params' => $params,
             ];
         }
