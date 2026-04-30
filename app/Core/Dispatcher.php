@@ -69,41 +69,12 @@ class Dispatcher
 
     private function respondError(int $statusCode, string $message, array $request = [], ?array $route = null): void
     {
-        $expectsJson = $this->expectsJson($request, $route);
-
-        if ($expectsJson) {
-            ApiController::setApiHeaders();
-            http_response_code($statusCode);
-            echo json_encode([
-                'error' => $this->statusLabel($statusCode),
-                'message' => $message,
-            ], JSON_UNESCAPED_UNICODE);
-            return;
-        }
-
-        $baseController = new BaseController();
-        $baseController->showError($message, $statusCode);
-    }
-
-    private function expectsJson(array $request, ?array $route): bool
-    {
-        if (isset($route['response']) && $route['response'] === 'html') {
-            return false;
-        }
-
-        if (isset($route['response']) && $route['response'] === 'json') {
-            return true;
-        }
-
-        $accept = '';
-        foreach (($request['headers'] ?? []) as $name => $value) {
-            if (strtolower((string) $name) === 'accept') {
-                $accept = strtolower((string) $value);
-                break;
-            }
-        }
-
-        return str_contains($accept, 'application/json');
+        ApiController::setApiHeaders();
+        http_response_code($statusCode);
+        echo json_encode([
+            'error' => $this->statusLabel($statusCode),
+            'message' => $message,
+        ], JSON_UNESCAPED_UNICODE);
     }
 
     private function statusLabel(int $statusCode): string
