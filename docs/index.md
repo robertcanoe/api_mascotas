@@ -1,26 +1,15 @@
-# Protectora de Mascotas
+# API Mascotas
 
-Proyecto completo con:
+> API REST en PHP para adopciones de mascotas.
 
-- Backend API en PHP 8.x con arquitectura MVC estricta.
-- Frontend PWA en JavaScript Vanilla.
-- Documentacion con MkDocs Material.
-- Despliegue continuo con GitHub Actions.
+## Resumen
 
-## Componentes
+- Arquitectura MVC en backend (`Controllers`, `Services`, `Models`, `Forms`).
+- Endpoints REST (`GET`, `POST`, `PUT`, `DELETE`).
+- JWT para operaciones administrativas.
+- PostgreSQL con PDO y consultas preparadas.
 
-- API MVC: enruta peticiones, aplica validacion y responde en JSON.
-- PWA: lista mascotas, filtra en tiempo real y envia solicitudes de adopcion.
-- Seguridad: JWT para rutas de administracion, validaciones server-side y consultas PDO preparadas.
-
-## Requisitos
-
-- PHP 8.1 o superior.
-- Composer.
-- PostgreSQL.
-- Opcional: Python para compilar la documentacion MkDocs.
-
-## Arranque rapido
+## Inicio rapido
 
 ```bash
 composer install
@@ -28,13 +17,24 @@ cp .env.example .env
 php -S localhost:8080 -t public
 ```
 
-Abre `http://localhost:8080` para la aplicacion web.
+Base URL local: `http://localhost:8080`
 
-## Documentacion
+## Navegacion
+
+- [Endpoints](api/endpoints.md)
+- [Guia Postman](api/postman.md)
+- [Autenticacion JWT](api/autenticacion.md)
+- [Deploy en Render](deploy/render.md)
+
+## Documentacion local
 
 ```bash
-pip install mkdocs mkdocs-material
+pip install mkdocs mkdocs-material pymdown-extensions
 mkdocs serve
 ```
 
-La documentacion se publica en `http://127.0.0.1:8000`.
+## Publicacion
+
+Esta documentacion se despliega automaticamente en GitHub Pages con el workflow:
+
+- `.github/workflows/docs-pages.yml`

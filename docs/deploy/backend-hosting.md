@@ -1,13 +1,13 @@
 # Despliegue Backend en Hosting PHP
 
-## Requisitos de hosting
+## Requisitos
 
 - PHP 8.x
-- Composer disponible en servidor o build local con `vendor/` subido
+- Composer
 - PostgreSQL
 - DocumentRoot apuntando a `public/`
 
-## Pasos recomendados
+## Pasos
 
 1. Crear base de datos y usuario.
 2. Subir proyecto excluyendo `.env`.
@@ -18,4 +18,4 @@
 ## Seguridad
 
 - Nunca exponer `app/`, `.env` ni `vendor/bin` por web.
-- Revisar permisos de `cache/`, `logs/` y `public/uploads/`.
+- Revisar permisos de `cache/` y `logs/`.

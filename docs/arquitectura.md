@@ -14,13 +14,12 @@
 3. `Dispatcher` ejecuta middleware y accion.
 4. El controlador delega en `Form` y `Service`.
 5. `Service` usa `Model` para persistencia.
-6. Se responde JSON o HTML segun la ruta.
+6. Se responde siempre JSON.
 
 ## Seguridad minima aplicada
 
 - DocumentRoot en `public/`.
 - Variables sensibles en `.env` fuera de git.
-- Escape de salida en vistas con `htmlspecialchars` via helper `e()`.
-- Validacion estricta de metodo POST para escrituras.
+- Validacion de metodo HTTP segun operacion (`POST`, `PUT`, `DELETE` para escrituras).
 - Queries preparadas con `PDO::prepare`.
 - Errores controlados con excepciones y logging en `logs/`.

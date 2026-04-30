@@ -1,35 +1,21 @@
-# GitHub Actions para CD
+# GitHub Actions
 
-## Backend por FTP
+## Docs en GitHub Pages
 
-Workflow: `.github/workflows/backend-ftp-deploy.yml`
+Workflow incluido: `.github/workflows/docs-pages.yml`
 
-Secrets requeridos:
+Que hace:
 
-- `FTP_SERVER`
-- `FTP_USERNAME`
-- `FTP_PASSWORD`
-- `FTP_SERVER_DIR` (ejemplo: `/public_html/api_mascotas`)
+1. Instala Python + MkDocs Material
+2. Ejecuta `mkdocs build --strict`
+3. Publica `site/` en GitHub Pages
 
-## Backend por SSH/rsync (alternativa)
+## Activacion en GitHub
 
-Workflow: `.github/workflows/backend-ssh-rsync.yml`
+1. Repo -> **Settings** -> **Pages**
+2. En **Build and deployment**, selecciona **GitHub Actions**
+3. Haz push a `main` en `docs/` o `mkdocs.yml`
 
-Secrets requeridos:
+## Backends
 
-- `SSH_HOST`
-- `SSH_PORT`
-- `SSH_USER`
-- `SSH_PRIVATE_KEY`
-- `SSH_TARGET_DIR`
-
-## Frontend en Netlify
-
-Workflow: `.github/workflows/frontend-netlify-deploy.yml`
-
-Secrets requeridos:
-
-- `NETLIFY_AUTH_TOKEN`
-- `NETLIFY_SITE_ID`
-
-Los workflows hacen despliegue continuo al hacer push a `main`.
+Si quieres CD para backend (Render, SSH, FTP), puedes anadir workflows separados.
