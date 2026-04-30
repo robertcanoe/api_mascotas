@@ -45,6 +45,8 @@ class MascotaModel extends DBAbstractModel
                     updated_at = NOW()
                 WHERE id = :id AND activo = 1';
 
+
+        // tenemos que persistir los datos en la base de datos, con this
         $affected = $this->execute_non_query($sql, [
             ':id' => $id,
             ':nombre' => $data['nombre'],
