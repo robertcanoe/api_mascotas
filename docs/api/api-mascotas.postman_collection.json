@@ -1,0 +1,197 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "API Mascotas",
+    "description": "Coleccion REST para api-mascotas (Render). Login guarda el token en variable de coleccion.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-mascotas-70fo.onrender.com"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "mascotaId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "GET /",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/"
+          }
+        },
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/health"
+          }
+        },
+        {
+          "name": "GET /mascotas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/mascotas"
+          }
+        },
+        {
+          "name": "GET /mascotas/{id}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/mascotas/{{mascotaId}}"
+          }
+        },
+        {
+          "name": "POST /adopciones",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mascota_id\": 1,\n  \"solicitante\": \"Ana Perez\",\n  \"email\": \"ana@example.com\",\n  \"mensaje\": \"Tengo patio amplio.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/adopciones"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST /auth/login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "try {",
+                  "  var j = pm.response.json();",
+                  "  if (j.data && j.data.token) {",
+                  "    pm.collectionVariables.set('token', j.data.token);",
+                  "  }",
+                  "} catch (e) {}",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@protectora.local\",\n  \"password\": \"Admin1234!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin (JWT)",
+      "item": [
+        {
+          "name": "POST /mascotas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Nala\",\n  \"especie\": \"Perro\",\n  \"edad\": 2,\n  \"foto_url\": \"https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400\",\n  \"descripcion\": \"Prueba desde Postman\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/mascotas"
+          }
+        },
+        {
+          "name": "PUT /mascotas/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Nala\",\n  \"especie\": \"Perro\",\n  \"edad\": 3,\n  \"foto_url\": \"https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400\",\n  \"descripcion\": \"Actualizado desde Postman\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/mascotas/{{mascotaId}}"
+          }
+        },
+        {
+          "name": "DELETE /mascotas/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": "{{baseUrl}}/mascotas/{{mascotaId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
