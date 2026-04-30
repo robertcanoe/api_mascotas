@@ -1,14 +1,41 @@
-site_name: Protectora de Mascotas
-site_description: API REST en PHP para adopciones de mascotas
-site_url: https://example.com/docs
-repo_name: protectora-mascotas
-repo_url: https://github.com/tu-org/protectora-mascotas
+site_name: API Mascotas
+site_description: Documentacion oficial de la API REST en PHP
+site_url: https://robertcanoe.github.io/api_mascotas/
+repo_name: robertcanoe/api_mascotas
+repo_url: https://github.com/robertcanoe/api_mascotas
+
 theme:
   name: material
   language: es
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - toc.follow
+    - search.highlight
+    - search.suggest
+    - content.code.copy
   palette:
-    primary: green
-    accent: amber
+    - scheme: default
+      primary: teal
+      accent: lime
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - scheme: slate
+      primary: teal
+      accent: lime
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - Inicio: index.md
   - Arquitectura MVC: arquitectura.md
@@ -17,11 +44,18 @@ nav:
       - Postman: api/postman.md
       - Autenticacion JWT: api/autenticacion.md
   - Despliegue:
-      - Backend Render (Docker): deploy/render.md
+      - Render (Docker): deploy/render.md
       - Backend hosting PHP: deploy/backend-hosting.md
-      - GitHub Actions CD: deploy/github-actions.md
+      - GitHub Actions: deploy/github-actions.md
+
 markdown_extensions:
   - admonition
   - toc:
       permalink: true
   - tables
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
