@@ -1,62 +1,52 @@
-# API Mascotas - MVC + PWA
+# API Mascotas — REST + MVC en PHP
 
-Aplicacion completa para gestion de adopciones de mascotas con:
-
-- Backend MVC en PHP 8.x.
-- API JSON con JWT.
-- Frontend PWA en JavaScript Vanilla.
-- Documentacion en MkDocs Material.
+API REST para gestion de adopciones de mascotas (PostgreSQL, JWT para rutas admin). Sin vistas HTML ni PWA en este repositorio.
 
 ## Estructura principal
 
-- `app/`: capas MVC y configuracion.
-- `public/`: front controller y assets del backend web.
-- `frontend/`: PWA estatica para despliegue en Netlify.
-- `docs/`: documentacion MkDocs.
+- `app/`: MVC (Controllers, Services, Models, Forms, Core, Middleware).
+- `public/`: front controller (`index.php` unicamente).
+- `docs/`: documentacion MkDocs (endpoints, Postman, deploy).
 
-## Instalacion
+## Instalacion local
 
 ```bash
 composer install
 cp .env.example .env
 ```
 
-Configura tu base de datos PostgreSQL y ejecuta `app/config/schema.sql`.
+Configura PostgreSQL y ejecuta `app/config/schema.sql`.
 
-Variables recomendadas para Koyeb:
+Variables habituales:
 
 - `DB_DRIVER=pgsql`
 - `DB_PORT=5432`
-- `DB_SSLMODE=require`
 
-## Deploy en Render (PostgreSQL + Web Service)
-
-Guia paso a paso: [docs/deploy/render.md](docs/deploy/render.md) (Blueprint [`render.yaml`](render.yaml) + [`Dockerfile`](Dockerfile)).
-
-## Ejecucion local
+## Ejecutar en local
 
 ```bash
 php -S localhost:8080 -t public
 ```
 
-## Endpoints clave
+## Documentacion API
 
-- `GET /mascotas`
-- `POST /adopciones`
-- `POST /auth/login`
+- **Rutas y ejemplos:** [docs/api/endpoints.md](docs/api/endpoints.md)
+- **Postman + credenciales de ejemplo:** [docs/api/postman.md](docs/api/postman.md)
+- **Coleccion importable:** [docs/api/api-mascotas.postman_collection.json](docs/api/api-mascotas.postman_collection.json)
 
-## Credenciales admin de desarrollo
+Produccion Render: `https://api-mascotas-70fo.onrender.com`
 
-- Email: `admin@protectora.local`
-- Password: `admin123`
+## Deploy en Render
 
-## Pruebas
+Guia: [docs/deploy/render.md](docs/deploy/render.md) ([`render.yaml`](render.yaml) + [`Dockerfile`](Dockerfile)).
+
+## Pruebas automatizadas
 
 ```bash
 composer test
 ```
 
-## Documentacion
+## Documentacion MkDocs
 
 ```bash
 pip install mkdocs mkdocs-material
