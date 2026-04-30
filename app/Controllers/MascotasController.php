@@ -48,7 +48,7 @@ class MascotasController extends ApiController
 
     public function updateAction(string $id, array $request = []): void
     {
-        $this->ensurePostRequest();
+        $this->ensureMethod($request, 'PUT');
 
         $mascotaId = (int) $id;
         if ($mascotaId <= 0) {
@@ -61,7 +61,7 @@ class MascotasController extends ApiController
 
     public function deleteAction(string $id, array $request = []): void
     {
-        $this->ensurePostRequest();
+        $this->ensureMethod($request, 'DELETE');
 
         $mascotaId = (int) $id;
         if ($mascotaId <= 0) {
