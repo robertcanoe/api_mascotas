@@ -8,13 +8,10 @@ cache/*
 !cache/.gitkeep
 logs/*
 !logs/.gitkeep
-public/uploads/*
-!public/uploads/.gitkeep
 vendor
 node_modules
 .phpunit.result.cache
 docs/**/site
-frontend
 mkdocs.yml
 crear_estructura_mvc.py
 promt.md
