@@ -12,6 +12,12 @@ require_once ROOT_PATH . '/vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(ROOT_PATH);
 $dotenv->safeLoad();
 
+// Render (y similares) inyectan RENDER_EXTERNAL_URL; unificamos a APP_URL para el resto de la app
+$appUrl = env('APP_URL');
+if (($appUrl === null || $appUrl === '') && env('RENDER_EXTERNAL_URL')) {
+    $_ENV['APP_URL'] = rtrim((string) env('RENDER_EXTERNAL_URL'), '/');
+}
+
 $requiredEnv = [
     'APP_ENV',
     'APP_URL',
@@ -27,6 +33,13 @@ $requiredEnv = [
 
 $missing = [];
 foreach ($requiredEnv as $key) {
+    if ($key === 'APP_URL') {
+        $value = env('APP_URL');
+        if (($value === null || $value === '') && (env('RENDER_EXTERNAL_URL') === null || env('RENDER_EXTERNAL_URL') === '')) {
+            $missing[] = $key;
+        }
+        continue;
+    }
     $value = env($key);
     if ($value === null || $value === '') {
         $missing[] = $key;
@@ -90,16 +103,16 @@ if (APP_DEBUG) {
     $whoops = new Run();
     $whoops->pushHandler(new PrettyPageHandler());
     $whoops->register();
+} else {
+    set_exception_handler(static function (Throwable $exception): void {
+        app_log($exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine(), 'ERROR');
+
+        http_response_code(500);
+        header('Content-Type: application/json; charset=utf-8');
+
+        echo json_encode([
+            'error' => 'Internal Server Error',
+            'message' => 'Unexpected server error.',
+        ], JSON_UNESCAPED_UNICODE);
+    });
 }
-
-set_exception_handler(static function (Throwable $exception): void {
-    app_log($exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine(), 'ERROR');
-
-    http_response_code(500);
-    header('Content-Type: application/json; charset=utf-8');
-
-    echo json_encode([
-        'error' => 'Internal Server Error',
-        'message' => APP_DEBUG ? $exception->getMessage() : 'Unexpected server error.',
-    ], JSON_UNESCAPED_UNICODE);
-});
