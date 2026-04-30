@@ -14,10 +14,6 @@ if (!defined('CONFIG_PATH')) {
     define('CONFIG_PATH', APP_PATH . '/config');
 }
 
-if (!defined('VIEWS_PATH')) {
-    define('VIEWS_PATH', ROOT_PATH . '/views');
-}
-
 if (!defined('PUBLIC_PATH')) {
     define('PUBLIC_PATH', ROOT_PATH . '/public');
 }
