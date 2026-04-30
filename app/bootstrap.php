@@ -84,8 +84,6 @@ ini_set('display_errors', APP_DEBUG ? '1' : '0');
 $requiredDirs = [
     CACHE_PATH,
     LOGS_PATH,
-    PUBLIC_PATH . '/uploads',
-    PUBLIC_PATH . '/uploads/contactos',
 ];
 
 $ensureDirectory = static function (string $dir): void {
