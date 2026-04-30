@@ -20,18 +20,17 @@ if ($method === 'OPTIONS') {
 
 $router = new Router();
 
-$router->get('/', 'IndexController@homeAction', ['response' => 'html']);
-$router->get('/index.php', 'IndexController@homeAction', ['response' => 'html']);
+$router->get('/', 'IndexController@infoAction');
 $router->get('/health', 'HealthController@statusAction');
 $router->get('/mascotas', 'MascotasController@indexAction');
 $router->get('/mascotas/{id}', 'MascotasController@showAction');
-$router->post('/adopciones', 'AdopcionesController@storeAction');
 $router->post('/auth/login', 'AuthController@loginAction');
+$router->post('/adopciones', 'AdopcionesController@storeAction');
 
 $adminMiddleware = [JwtAuthMiddleware::class];
 $router->post('/mascotas', 'MascotasController@storeAction', ['middleware' => $adminMiddleware]);
-$router->post('/mascotas/{id}/actualizar', 'MascotasController@updateAction', ['middleware' => $adminMiddleware]);
-$router->post('/mascotas/{id}/eliminar', 'MascotasController@deleteAction', ['middleware' => $adminMiddleware]);
+$router->put('/mascotas/{id}', 'MascotasController@updateAction', ['middleware' => $adminMiddleware]);
+$router->delete('/mascotas/{id}', 'MascotasController@deleteAction', ['middleware' => $adminMiddleware]);
 
 $route = $router->match($method, $uri);
 
