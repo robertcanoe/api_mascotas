@@ -78,6 +78,9 @@ if (!defined('BASE_PATH')) {
 
 date_default_timezone_set((string) $config['app']['timezone']);
 
+error_reporting(E_ALL);
+ini_set('display_errors', APP_DEBUG ? '1' : '0');
+
 $requiredDirs = [
     CACHE_PATH,
     LOGS_PATH,
@@ -85,19 +88,30 @@ $requiredDirs = [
     PUBLIC_PATH . '/uploads/contactos',
 ];
 
-foreach ($requiredDirs as $dir) {
-    if (!is_dir($dir)) {
-        mkdir($dir, 0775, true);
+$ensureDirectory = static function (string $dir): void {
+    if (is_dir($dir)) {
+        return;
     }
+
+    $parent = dirname($dir);
+    if (!is_dir($parent) || !is_writable($parent)) {
+        error_log(sprintf('[bootstrap] Skip creating directory "%s": parent is not writable.', $dir));
+        return;
+    }
+
+    if (!@mkdir($dir, 0775, true) && !is_dir($dir)) {
+        error_log(sprintf('[bootstrap] Failed to create directory "%s".', $dir));
+    }
+};
+
+foreach ($requiredDirs as $dir) {
+    $ensureDirectory($dir);
 }
 
-if (session_status() !== PHP_SESSION_ACTIVE) {
+if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
     session_name('protectora_session');
-    session_start();
+    @session_start();
 }
-
-error_reporting(E_ALL);
-ini_set('display_errors', APP_DEBUG ? '1' : '0');
 
 if (APP_DEBUG) {
     $whoops = new Run();
