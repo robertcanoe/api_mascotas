@@ -4,25 +4,30 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Core\BaseController;
-use App\Services\MascotaService;
-
-class IndexController extends BaseController
+class IndexController extends ApiController
 {
-    private MascotaService $mascotaService;
-
-    public function __construct()
+    public function infoAction(array $request = []): void
     {
-        $this->mascotaService = new MascotaService();
-    }
-
-    public function homeAction(array $request = []): void
-    {
-        $mascotas = $this->mascotaService->listMascotas();
-
-        $this->renderHTML('index/home', [
-            'title' => 'Protectora de Mascotas',
-            'mascotas' => $mascotas,
+        $this->respond([
+            'data' => [
+                'name' => 'API Mascotas',
+                'env' => APP_ENV,
+                'documentation' => [
+                    'endpoints' => 'Ver docs/api/endpoints.md o documentacion MkDocs',
+                    'postman' => 'docs/api/postman.md',
+                ],
+                'endpoints' => [
+                    'GET /',
+                    'GET /health',
+                    'GET /mascotas',
+                    'GET /mascotas/{id}',
+                    'POST /auth/login',
+                    'POST /mascotas (admin, JWT)',
+                    'PUT /mascotas/{id} (admin, JWT)',
+                    'DELETE /mascotas/{id} (admin, JWT)',
+                    'POST /adopciones',
+                ],
+            ],
         ]);
     }
 }
