@@ -1,0 +1,58 @@
+databases:
+  - name: mascotas-db
+    plan: free
+    databaseName: mascotas_db
+    user: mascotas
+
+services:
+  - type: web
+    name: api-mascotas
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: TIMEZONE
+        value: UTC
+      # APP_URL: en Render se rellena desde RENDER_EXTERNAL_URL en app/bootstrap.php
+      - key: DB_DRIVER
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: mascotas-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: mascotas-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: mascotas-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: mascotas-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: mascotas-db
+          property: password
+      - key: DB_SSLMODE
+        value: require
+      - key: DB_SCHEMA
+        value: public
+      - key: DB_CHARSET
+        value: UTF8
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_ISSUER
+        value: protectora-api
+      - key: JWT_TTL
+        value: "3600"
+      - key: ADMIN_EMAIL
+        value: admin@protectora.local
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
