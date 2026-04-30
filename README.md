@@ -29,6 +29,10 @@ Variables recomendadas para Koyeb:
 - `DB_PORT=5432`
 - `DB_SSLMODE=require`
 
+## Deploy en Render (PostgreSQL + Web Service)
+
+Guia paso a paso: [docs/deploy/render.md](docs/deploy/render.md) (Blueprint [`render.yaml`](render.yaml) + [`Dockerfile`](Dockerfile)).
+
 ## Ejecucion local
 
 ```bash
